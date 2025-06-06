@@ -11,14 +11,13 @@
 
 # EXAMPLE: if you want to use the config file and the latest numbered release docker image the result will be:
 
- services:
-   api:
-     volumes:
-     - type: bind
-       source: ./librechat.yaml
-       target: /app/librechat.yaml
-     image: ghcr.io/danny-avila/librechat:latest
-
+  services:
+    api:
+      volumes:
+        - type: bind
+          source: ./librechat.yaml
+          target: /app/librechat.yaml
+      image: ghcr.io/danny-avila/librechat:latest
 # ---------------------------------------------------
 
 # services:
@@ -116,6 +115,21 @@
 #       - "11434:11434"
 #     volumes:
 #       - ./ollama:/root/.ollama
+    ollama:
+      image: ollama/ollama:latest
+      container_name: ollama
+      ports:
+        - "11434:11434"
+      volumes:
+        - ./ollama/data:/root/.ollama
+      deploy:
+        resources:
+          reservations:
+            devices:
+              - capabilities: [gpu]
+      environment:
+        - NVIDIA_VISIBLE_DEVICES=all
+
 
 # # ADD LITELLM BASIC - NEED TO CONFIGURE litellm-config.yaml, ONLY NEED ENV TO ENABLE REDIS FOR CACHING OR LANGFUSE FOR MONITORING
 #  litellm:

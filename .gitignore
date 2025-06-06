@@ -4,3 +4,6 @@
 .env
 *.db
 LibreChat/
+./containers/data/*
+ollama/*
+ollama-data/
