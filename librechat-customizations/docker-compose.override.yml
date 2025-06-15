@@ -121,7 +121,7 @@
       ports:
         - "11434:11434"
       volumes:
-        - /home/bryanna/Documents/Projects/python/ai-playground/LibreChat/ollama/data:/root/.ollama
+        - /mnt/containers/ollama/data:/root/.ollama
       deploy:
         resources:
           reservations:
@@ -129,6 +129,13 @@
               - capabilities: [gpu]
       environment:
         - NVIDIA_VISIBLE_DEVICES=all
+
+    web-retriever:
+      build: ../central-brain/web-retriever
+      container_name: web-retriever
+      ports:
+      - "3000:3000"
+      restart: unless-stopped
 
 
 # # ADD LITELLM BASIC - NEED TO CONFIGURE litellm-config.yaml, ONLY NEED ENV TO ENABLE REDIS FOR CACHING OR LANGFUSE FOR MONITORING

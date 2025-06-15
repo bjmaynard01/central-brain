@@ -3,7 +3,7 @@
 *__pycache__*
 .env
 *.db
-LibreChat/
+../LibreChat/
 ./containers/data/*
 ollama/*
 ollama-data/
