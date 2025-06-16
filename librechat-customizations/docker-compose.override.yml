@@ -11,24 +11,24 @@
 
 # EXAMPLE: if you want to use the config file and the latest numbered release docker image the result will be:
 
-  services:
+ services:
     api:
       volumes:
         - type: bind
           source: ./librechat.yaml
           target: /app/librechat.yaml
       image: ghcr.io/danny-avila/librechat:latest
+
 # ---------------------------------------------------
 
 # services:
 
-# USE LIBRECHAT CONFIG FILE
+# # USE LIBRECHAT CONFIG FILE
 #   api:
 #     volumes:
 #     - type: bind
 #       source: ./librechat.yaml
 #       target: /app/librechat.yaml
-#    image: ghcr.io/danny-avila/librechat:latest
 
 # # LOCAL BUILD
 #   api:
@@ -40,7 +40,7 @@
 # # BUILD FROM LATEST IMAGE
 #   api:
 #     image: ghcr.io/danny-avila/librechat-dev:latest
- 
+
 # # BUILD FROM LATEST IMAGE (NUMBERED RELEASE)
 #   api:
 #     image: ghcr.io/danny-avila/librechat:latest
@@ -52,6 +52,13 @@
 # # BUILD FROM LATEST API IMAGE (NUMBERED RELEASE)
 #   api:
 #     image: ghcr.io/danny-avila/librechat-api:latest
+
+# # ADD SAML CERT FILE
+#   api:
+#     volumes:
+#     - type: bind
+#       source: ./your_cert.pem
+#       target: /app/your_cert.pem
 
 # # ADD MONGO-EXPRESS
 #   mongo-express:
@@ -96,25 +103,25 @@
 #       - 7700:7700
 
 # # USE RAG API IMAGE WITH LOCAL EMBEDDINGS SUPPORT
-#  rag_api:
-#    image: ghcr.io/danny-avila/librechat-rag-api-dev:latest
-# # For Linux user: 
+    rag_api:
+      image: ghcr.io/danny-avila/librechat-rag-api-dev:latest
+# # For Linux user:
 #    extra_hosts:
 #      - "host.docker.internal:host-gateway"
 
-# ADD OLLAMA
-#   ollama:
-#     image: ollama/ollama:latest
-#     deploy:
-#       resources:
+# # ADD OLLAMA
+#  ollama:
+#    image: ollama/ollama:latest
+#    deploy:
+#      resources:
 #        reservations:
 #          devices:
 #            - driver: nvidia
 #              capabilities: [compute, utility]
-#     ports:
-#       - "11434:11434"
-#     volumes:
-#       - ./ollama:/root/.ollama
+#    ports:
+#      - "11434:11434"
+#    volumes:
+#      - ./ollama:/root/.ollama
     ollama:
       image: ollama/ollama:latest
       container_name: ollama
@@ -137,7 +144,6 @@
       - "3000:3000"
       restart: unless-stopped
 
-
 # # ADD LITELLM BASIC - NEED TO CONFIGURE litellm-config.yaml, ONLY NEED ENV TO ENABLE REDIS FOR CACHING OR LANGFUSE FOR MONITORING
 #  litellm:
 #    image: ghcr.io/berriai/litellm:main-latest
@@ -158,17 +164,17 @@
 #      LANGFUSE_HOST: http://langfuse-server:3000
 
 # # ADD LITELLM CACHING
-#  redis:
-#    image: redis:7-alpine
-#    command:
-#    - sh
-#    - -c # this is to evaluate the $REDIS_PASSWORD from the env
-#    - redis-server --appendonly yes --requirepass $$REDIS_PASSWORD ## $$ because of docker-compose
-#    environment:
-#      REDIS_PASSWORD: RedisChangeMe
-#    volumes:
-#    - ./redis:/data
-  
+    redis:
+      image: redis:7-alpine
+      command:
+      - sh
+      - -c # this is to evaluate the $REDIS_PASSWORD from the env
+      - redis-server --appendonly yes --requirepass $$REDIS_PASSWORD ## $$ because of docker-compose
+      environment:
+        REDIS_PASSWORD: sarah100
+      volumes:
+        - ./redis:/data
+
 # # ADD LITELLM MONITORING
 #  langfuse-server:
 #    image: ghcr.io/langfuse/langfuse:latest
