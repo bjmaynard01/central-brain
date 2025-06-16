@@ -1,0 +1,16 @@
+proxy:
+ image: nginx
+ ports:
+  - 443:443
+  - 80:80
+ environment:
+  - TZ=America/New_York
+ volumes:
+  - /mnt/storage/containers/proxy:/etc/nginx
+  - /mnt/storage/containers/proxy/conf.d:/etc/nginx/conf.d
+  - /mnt/storage/containers/proxy/certs:/etc/nginx/certs
+  - /mnt/storage/containers/proxy/log:/var/log/nginx
+  - /mnt/storage/containers/proxy/html:/usr/share/nginx/html
+  - /tmp:/data/nginx
+  - /mnt/storage/containers/proxy/snippets:/etc/nginx/snippets
+ container_name: proxy
