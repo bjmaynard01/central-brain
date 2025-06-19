@@ -158,18 +158,33 @@ actions:
 
 # Definition of custom endpoints
 endpoints:
+  openAI:
+    name: "openai"
+    apiKey: "user_provided"
+    enabled: true
+    userProvide: true
+    models:
+      default: ["gpt-4o", "gpt-4o-mini"]
+      list:
+        - id: "gpt-4o"
+          modelName: "gpt-4o"
+          label: "GPT-4o"
+        - id: "gpt-4o-mini"
+          modelName: "gpt-4o-mini"
+          label: "GPT-4o Mini"
+
   custom:
     - name: "ollama"
       apiKey: "ollama"
       type: "ollama"
       baseURL: "http://ollama:11434/v1"
       models:
-        default: ["llama3:8b-instruct-q6_K"]
+        default: ["llama3:8b-instruct-q4_K_M"]
         fetch: false
         list:
           - id: "llama3"
-            modelName: "llama3:8b-instruct-q6_K"
-            label: "LLaMA 3 8b Q6_K (GPU)"
+            modelName: "llama3:8b-instruct-q4_K_M"
+            label: "LLaMA 3 8b Q4_K_M (GPU)"
             systemPrompt: |
               You are a helpful AI assistant for the Maynard family.
               - For any questions involving **current, recent, or real-time information**, you must invoke the `web-search` function.
